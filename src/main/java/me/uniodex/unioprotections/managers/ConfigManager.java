@@ -49,7 +49,7 @@ public class ConfigManager {
         if (inputStream != null) {
             InputStreamReader reader = new InputStreamReader(inputStream);
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(reader);
-            configurations.get(fileName).setDefaults(defConfig);
+            configurations.get(config).setDefaults(defConfig);
             try {
                 reader.close();
                 inputStream.close();
@@ -63,7 +63,7 @@ public class ConfigManager {
         String fileName = getFileName(config);
 
         try {
-            configurations.get(fileName).save(new File(plugin.getDataFolder(), fileName));
+            configurations.get(config).save(new File(plugin.getDataFolder(), fileName));
         } catch (IOException ex) {
             Bukkit.getLogger().log(Level.SEVERE, "Couldn't save " + fileName + "!");
         }
