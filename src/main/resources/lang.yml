@@ -1,0 +1,31 @@
+prefix:
+  bilgiPrefix: "&b&lUNIOCRAFT &2->&a"
+  dikkatPrefix: "&b&lUNIOCRAFT &2->&6"
+  hataPrefix: "&b&lUNIOCRAFT &2->&c"
+  consolePrefix: "[UnioProtections] "
+plugin:
+  configReloaded: "%bilgiPrefix% Yapılandırma yenilendi!"
+  noPermission: "%hataPrefix% Bunun için izniniz yok!"
+lootProtection:
+  playerLootBelongToSomeoneElse: "%dikkatPrefix% Öldürdüğünüz oyuncunun ganimeti en çok hasarı veren &a%lootOwner% &6üzerine 10 saniye boyunca zimmetlendi."
+  mobLootBelongToSomeoneElse: "%dikkatPrefix% Öldürdüğünüz yaratığın ganimeti en çok hasarı veren &a%lootOwner% &6üzerine 10 saniye boyunca zimmetlendi."
+  lootBelongToYou: "%bilgiPrefix% Ganimetiniz 10 saniye boyunca size zimmetlendi. Bu süre boyunca diğer oyuncular ganimetinizi alamaz!"
+  lootProtectionTimedOut: "%dikkatPrefix% Ganimetinizin koruması kalktı! Eğer eşyaları hala almadıysanız başkaları alabilir!"
+onlyAllowListOfCommands:
+  unknownCommand: "%hataPrefix% Hatalı bir komut girdiniz! Komutların listesi için &b/komutlar &cyazınız."
+enderPearlCooldown:
+  youMustWait: "%hataPrefix% Ender incisi kullanmak için &6%s &csaniye daha beklemelisin!"
+noFlyAndTeleportZones:
+  youCantFlyHere: '%hataPrefix% Bu alanda uçamazsınız!'
+  youCantTeleportThere: '%hataPrefix% Işınlanma güvenlik sebebiyle iptal edildi!'
+antiTradeMeBug:
+  moneyHasChanged: "%hataPrefix% Ticaret esnasında para miktarınız değiştiği için ticaret iptal edildi."
+  moneyHasChangedLog: "%consolePrefix% %player% isimli oyuncunun para miktarı ticaret esnasında değiştiği için ticareti iptal edildi."
+  youCantDropItemsWhileTrading: "%hataPrefix% Ticaret esnasında yere eşya atamazsınız."
+  paperTradeCancelled: "%hataPrefix% Kredi çeki, uçuş kartı gibi eşyalarla karışmaması için özel olmayan bir kağıt ile ticaret etme devre dışı bırakılmıştır."
+antiCrashCode:
+  cantUseCrashCode: "%hataPrefix% &c&l%s &ckarakterini kullanmak yasaktır!"
+antiShopBug:
+  cantMakeShopsInLockedBlocks: "%hataPrefix% Kilitli bloklara market kuramazsınız!"
+smallFixes:
+  dispenserFix: "%hataPrefix% Bazı açıklardan dolayı fırlatıcıya eşya çerçevesi koyulması engellenmiştir!"

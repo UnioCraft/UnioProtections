@@ -1,0 +1,35 @@
+checks:
+  lootProtection: true
+  onlyAllowListOfCommands: true
+  enderPearlCooldown: true
+  noFlyZones: true
+  noTeleportZones: true
+  entitiyLimiter: true
+  antiTradeMeBug: true
+  antiCrashCode: true
+  antiShopBug: true
+  smallFixes:
+    leaveVehicleOnjoin: true
+    disallowItemFrameInDispenser: true
+settings:
+  lootProtectionTimeout: 10 # in seconds
+  enderPearlCooldown: 3 # in seconds
+  allowedCommands: # Commands must be lowercase.
+    player:
+      - komutlar
+      - renk
+    moderator:
+      - kick
+      - kilitkir
+  noFlyZones:
+    - arena
+  noTeleportZones:
+    - arena
+  entityLimits: # This limits the maximum entitiy in specified range. Different entity types won't count.
+    range: 16
+    breeding: 32
+    natural: 16
+    spawner: 32
+    spawnegg: 32
+  disabledTradingPaper: true
+  allowTradingColoredNamedPapers: true

@@ -1,0 +1,10 @@
+name: UnioProtections
+main: me.uniodex.unioprotections.UnioProtections
+author: 'UnioDex'
+version: 1.0
+
+softdepend: [MythicMobs, Factions, WorldGuard, TradeMe, Essentials, LockettePro, Shop]
+
+commands:
+  unioprotections:
+    description: unioprotections
