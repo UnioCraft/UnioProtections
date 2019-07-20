@@ -61,7 +61,11 @@ public class LootProtectionListeners implements Listener {
     public void onDamage(EntityDamageByEntityEvent event) {
         Player player = null;
         if (event.getDamager() instanceof Player) player = (Player) event.getDamager();
-        if (event.getDamager() instanceof Projectile) player = (Player) ((Projectile) event.getDamager()).getShooter();
+        if (event.getDamager() instanceof Projectile) {
+            if (((Projectile) event.getDamager()).getShooter() instanceof Player) {
+                player = (Player) ((Projectile) event.getDamager()).getShooter();
+            }
+        }
         if (player == null) return;
 
         Entity entity = event.getEntity();
