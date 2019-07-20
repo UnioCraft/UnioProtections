@@ -121,6 +121,20 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/LockettePro.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>Duels</groupId>
+            <artifactId>Duels</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/Duels.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>UnioAuctions</groupId>
+            <artifactId>UnioAuctions</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/UnioAuctions.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <properties>

@@ -1,12 +1,14 @@
 package me.uniodex.unioprotections;
 
 import com.earth2me.essentials.Essentials;
+import com.flobi.floauction.FloAuction;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.snowgears.shop.Shop;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import lombok.Getter;
 import me.Zrips.TradeMe.TradeMe;
 import me.crafter.mc.lockettepro.LockettePro;
+import me.realized.duels.api.Duels;
 import me.uniodex.unioprotections.commands.CmdUnioprotections;
 import me.uniodex.unioprotections.managers.CheckManager;
 import me.uniodex.unioprotections.managers.ConfigManager;
@@ -44,6 +46,10 @@ public class UnioProtections extends JavaPlugin {
     private LockettePro lockettePro;
     @Getter
     private Shop shop;
+    @Getter
+    private FloAuction floAuction;
+    @Getter
+    private Duels duels;
 
     public void onEnable() {
         configManager = new ConfigManager(this);
@@ -79,6 +85,14 @@ public class UnioProtections extends JavaPlugin {
 
         if (Bukkit.getPluginManager().isPluginEnabled("Shop")) {
             shop = (Shop) Bukkit.getPluginManager().getPlugin("Shop");
+        }
+
+        if (Bukkit.getPluginManager().isPluginEnabled("Duels")) {
+            duels = (Duels) Bukkit.getPluginManager().getPlugin("Duels");
+        }
+
+        if (Bukkit.getPluginManager().isPluginEnabled("ObsidianAuctions")) {
+            floAuction = (FloAuction) Bukkit.getPluginManager().getPlugin("ObsidianAuctions");
         }
 
         // Managers

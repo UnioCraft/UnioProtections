@@ -8,6 +8,7 @@ checks:
   antiTradeMeBug: true
   antiCrashCode: true
   antiShopBug: true
+  denyDuelOnAuction: true
   smallFixes:
     leaveVehicleOnjoin: true
     disallowItemFrameInDispenser: true

@@ -27,5 +27,7 @@ antiCrashCode:
   cantUseCrashCode: "%hataPrefix% &c&l%s &ckarakterini kullanmak yasaktır!"
 antiShopBug:
   cantMakeShopsInLockedBlocks: "%hataPrefix% Kilitli bloklara market kuramazsınız!"
+denyDuelOnAuction:
+  inAuction: "%hataPrefix% %player% bir açık arttırmada olduğu için düello iptal edildi."
 smallFixes:
   dispenserFix: "%hataPrefix% Bazı açıklardan dolayı fırlatıcıya eşya çerçevesi koyulması engellenmiştir!"

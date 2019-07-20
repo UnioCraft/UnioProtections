@@ -23,6 +23,8 @@ public class CheckManager {
     private NoXZoneManager noXZoneManager;
     @Getter
     private EntityLimiterManager entityLimiterManager;
+    @Getter
+    private DuelsManager duelsManager;
 
     public CheckManager(UnioProtections plugin) {
         this.plugin = plugin;
@@ -89,7 +91,14 @@ public class CheckManager {
         // Anti Shop Bug
         if (plugin.getConfig().getBoolean("checks.antiShopBug") && plugin.getShop() != null && plugin.getLockettePro() != null) {
             new AntiShopBugListeners(plugin);
-            enabledChecks.add(Check.SMALLFIX_ANTISHOPBUG);
+            enabledChecks.add(Check.ANTISHOPBUG);
+        }
+
+        // Deny Duel on Auction
+        if (plugin.getConfig().getBoolean("checks.denyDuelOnAuction") && plugin.getFloAuction() != null && plugin.getDuels() != null) {
+            duelsManager = new DuelsManager(plugin);
+            new DuelsListener(plugin);
+            enabledChecks.add(Check.NODUELONAUCTION);
         }
 
         // Small Fixes
@@ -124,9 +133,10 @@ public class CheckManager {
         ENTITYLIMITER,
         ANTITRADEMEBUG,
         ANTICRASHCODE,
+        ANTISHOPBUG,
+        NODUELONAUCTION,
         SMALLFIX_LEAVEVEHICLEONJOIN,
-        SMALLFIX_DISALLOWITEMFRAMEINDISPENSER,
-        SMALLFIX_ANTISHOPBUG
+        SMALLFIX_DISALLOWITEMFRAMEINDISPENSER
     }
 
 }

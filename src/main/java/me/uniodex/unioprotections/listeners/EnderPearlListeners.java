@@ -58,7 +58,7 @@ public class EnderPearlListeners implements Listener {
             } else {
                 event.setCancelled(true);
                 player.updateInventory();
-                player.sendMessage(plugin.getMessage("messages.enderPearlCooldown").replaceAll("%s", plugin.getCheckManager().getEnderPearlManager().getPearlCooldown(player.getName())));
+                player.sendMessage(plugin.getMessage("enderPearlCooldown.youMustWait").replaceAll("%s", plugin.getCheckManager().getEnderPearlManager().getPearlCooldown(player.getName())));
             }
         }
     }

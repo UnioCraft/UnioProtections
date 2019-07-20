@@ -3,7 +3,7 @@ main: me.uniodex.unioprotections.UnioProtections
 author: 'UnioDex'
 version: 1.0
 
-softdepend: [MythicMobs, Factions, WorldGuard, TradeMe, Essentials, LockettePro, Shop]
+softdepend: [MythicMobs, Factions, WorldGuard, TradeMe, Essentials, LockettePro, Shop, Duels, ObsidianAuctions]
 
 commands:
   unioprotections:
