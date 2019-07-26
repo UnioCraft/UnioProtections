@@ -24,6 +24,18 @@ public class AnvilListeners implements Listener {
     public void on(PrepareAnvilEvent event) {
         AnvilInventory anvilInventory = event.getInventory();
         for (String disallowedItem : plugin.getCheckManager().getCustomItemsManager().getDisallowedItemNames()) {
+            ItemStack leftItem = anvilInventory.getItem(0);
+
+            if (plugin.getConfig().getBoolean("settings.disallowPuttingCustomItemsToAnvil")) {
+                if (leftItem != null && leftItem.getItemMeta() != null && leftItem.getItemMeta().getDisplayName() != null && leftItem.getItemMeta().getDisplayName().toLowerCase().contains(disallowedItem)) {
+                    event.setResult(new ItemStack(Material.AIR));
+                    for (HumanEntity player : event.getViewers()) {
+                        player.sendMessage(plugin.getMessage("disallowNamingFakeItems.youCantPutThisItemToAnvil"));
+                    }
+                    return;
+                }
+            }
+
             if (anvilInventory.getRenameText().toLowerCase().contains(disallowedItem)) {
                 event.setResult(new ItemStack(Material.AIR));
                 for (HumanEntity player : event.getViewers()) {

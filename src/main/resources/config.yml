@@ -40,3 +40,4 @@ settings:
   disallowUCIItemNames: true
   disallowedItemNames:
     - Kredi
+  disallowPuttingCustomItemsToAnvil: true
