@@ -1,14 +1,20 @@
 package me.uniodex.unioprotections.listeners;
 
 import me.uniodex.unioprotections.UnioProtections;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.inventory.AnvilInventory;
+import org.bukkit.inventory.ItemStack;
 
 public class AntiCrashCodeListeners implements Listener {
 
@@ -17,6 +23,7 @@ public class AntiCrashCodeListeners implements Listener {
 
     public AntiCrashCodeListeners(UnioProtections plugin) {
         this.plugin = plugin;
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     private boolean containsBadCharacter(String string) {
@@ -50,6 +57,18 @@ public class AntiCrashCodeListeners implements Listener {
                     event.setCancelled(true);
                     player.sendMessage(plugin.getMessage("antiCrashCode.cantUseCrashCode").replaceAll("%s", String.valueOf(BAD_CHARACTER)));
                 }
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void on(PrepareAnvilEvent event) {
+        AnvilInventory anvilInventory = event.getInventory();
+
+        if (containsBadCharacter(anvilInventory.getRenameText())) {
+            event.setResult(new ItemStack(Material.AIR));
+            for (HumanEntity player : event.getViewers()) {
+                player.sendMessage(plugin.getMessage("antiCrashCode.cantUseCrashCode").replaceAll("%s", String.valueOf(BAD_CHARACTER)));
             }
         }
     }

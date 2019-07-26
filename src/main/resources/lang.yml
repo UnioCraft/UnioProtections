@@ -29,5 +29,7 @@ antiShopBug:
   cantMakeShopsInLockedBlocks: "%hataPrefix% Kilitli bloklara market kuramazsınız!"
 denyDuelOnAuction:
   inAuction: "%hataPrefix% %player% bir açık arttırmada olduğu için düello iptal edildi."
+disallowNamingFakeItems:
+  youCantNameItemsSpecial: "%hataPrefix% Yasaklı olan bir eşya adı seçtiniz."
 smallFixes:
   dispenserFix: "%hataPrefix% Bazı açıklardan dolayı fırlatıcıya eşya çerçevesi koyulması engellenmiştir!"

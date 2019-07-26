@@ -135,6 +135,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/UnioAuctions.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>UnioCustomItems</groupId>
+            <artifactId>UnioCustomItems</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/UnioCustomItems.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <properties>

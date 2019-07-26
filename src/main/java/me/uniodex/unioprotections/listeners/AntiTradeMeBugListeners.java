@@ -24,6 +24,7 @@ public class AntiTradeMeBugListeners implements Listener {
 
     public AntiTradeMeBugListeners(UnioProtections plugin) {
         this.plugin = plugin;
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler

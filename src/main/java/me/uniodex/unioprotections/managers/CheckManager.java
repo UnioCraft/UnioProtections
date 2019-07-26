@@ -25,6 +25,10 @@ public class CheckManager {
     private EntityLimiterManager entityLimiterManager;
     @Getter
     private DuelsManager duelsManager;
+    @Getter
+    private ObsidianAuctionsManager obsidianAuctionsManager;
+    @Getter
+    private CustomItemsManager customItemsManager;
 
     public CheckManager(UnioProtections plugin) {
         this.plugin = plugin;
@@ -96,9 +100,17 @@ public class CheckManager {
 
         // Deny Duel on Auction
         if (plugin.getConfig().getBoolean("checks.denyDuelOnAuction") && plugin.getFloAuction() != null && plugin.getDuels() != null) {
+            obsidianAuctionsManager = new ObsidianAuctionsManager(plugin);
             duelsManager = new DuelsManager(plugin);
             new DuelsListener(plugin);
             enabledChecks.add(Check.NODUELONAUCTION);
+        }
+
+        // Disallow Naming Fake Items
+        if (plugin.getConfig().getBoolean("checks.disallowNamingFakeItems") && plugin.getCustomItems() != null) {
+            customItemsManager = new CustomItemsManager(plugin);
+            new AnvilListeners(plugin);
+            enabledChecks.add(Check.DISALLOWNAMINGFAKEITEMS);
         }
 
         // Small Fixes
@@ -112,6 +124,11 @@ public class CheckManager {
         /// Disallow Item Frame in Dispenser
         if (plugin.getConfig().getBoolean("checks.smallFixes.disallowItemFrameInDispenser")) {
             enabledChecks.add(Check.SMALLFIX_DISALLOWITEMFRAMEINDISPENSER);
+        }
+
+        /// Disallow Teleporting to Duel Areas
+        if (plugin.getConfig().getBoolean("checks.smallFixes.disallowTeleportingToDuelAreas")) {
+            enabledChecks.add(Check.SMALLFIX_DISALLOWTELEPORTINGTODUELAREAS);
         }
 
         Bukkit.getLogger().log(Level.INFO, "UnioProtections loaded. Enabled checks:");
@@ -135,8 +152,10 @@ public class CheckManager {
         ANTICRASHCODE,
         ANTISHOPBUG,
         NODUELONAUCTION,
+        DISALLOWNAMINGFAKEITEMS,
         SMALLFIX_LEAVEVEHICLEONJOIN,
-        SMALLFIX_DISALLOWITEMFRAMEINDISPENSER
+        SMALLFIX_DISALLOWITEMFRAMEINDISPENSER,
+        SMALLFIX_DISALLOWTELEPORTINGTODUELAREAS
     }
 
 }

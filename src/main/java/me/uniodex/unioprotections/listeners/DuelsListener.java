@@ -2,6 +2,7 @@ package me.uniodex.unioprotections.listeners;
 
 import me.realized.duels.api.event.request.RequestAcceptEvent;
 import me.uniodex.unioprotections.UnioProtections;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,6 +13,7 @@ public class DuelsListener implements Listener {
 
     public DuelsListener(UnioProtections plugin) {
         this.plugin = plugin;
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler

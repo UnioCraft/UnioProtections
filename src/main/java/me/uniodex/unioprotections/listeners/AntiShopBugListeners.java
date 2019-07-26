@@ -3,6 +3,7 @@ package me.uniodex.unioprotections.listeners;
 import com.snowgears.shop.event.PlayerCreateShopEvent;
 import me.crafter.mc.lockettepro.LocketteProAPI;
 import me.uniodex.unioprotections.UnioProtections;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,6 +15,7 @@ public class AntiShopBugListeners implements Listener {
 
     public AntiShopBugListeners(UnioProtections plugin) {
         this.plugin = plugin;
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler

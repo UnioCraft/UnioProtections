@@ -31,6 +31,22 @@ public class Utils {
         return regionIds.contains(regionName);
     }
 
+    public static boolean isThereALocationStartsWith(WorldGuardPlugin worldGuard, String regionName, Location location) {
+        List<String> regionIds = new ArrayList<>();
+        RegionManager regionManager = worldGuard.getRegionManager(location.getWorld());
+        ApplicableRegionSet regionsAtLocation = regionManager.getApplicableRegions(location);
+
+        for (ProtectedRegion region : regionsAtLocation) {
+            regionIds.add(region.getId());
+        }
+
+        for (String regionId : regionIds) {
+            if (regionId.startsWith(regionName)) return true;
+        }
+
+        return false;
+    }
+
     public static boolean isEntityLimitReached(Entity entity, int limit, int range) {
         int count = 0;
         for (Entity nearbyEntity : entity.getNearbyEntities(range, 255.0D, range)) {

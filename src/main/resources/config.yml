@@ -9,9 +9,11 @@ checks:
   antiCrashCode: true
   antiShopBug: true
   denyDuelOnAuction: true
+  disallowNamingFakeItems: true
   smallFixes:
     leaveVehicleOnjoin: true
     disallowItemFrameInDispenser: true
+    disallowTeleportingToDuelAreas: true
 settings:
   lootProtectionTimeout: 10 # in seconds
   enderPearlCooldown: 3 # in seconds
@@ -34,3 +36,7 @@ settings:
     spawnegg: 32
   disabledTradingPaper: true
   allowTradingColoredNamedPapers: true
+  duelZonePrefix: "duel"
+  disallowUCIItemNames: true
+  disallowedItemNames:
+    - Kredi

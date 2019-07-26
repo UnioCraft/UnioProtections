@@ -6,6 +6,7 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.snowgears.shop.Shop;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import lombok.Getter;
+import me.UnioDex.CustomItems.CustomItems;
 import me.Zrips.TradeMe.TradeMe;
 import me.crafter.mc.lockettepro.LockettePro;
 import me.realized.duels.api.Duels;
@@ -50,6 +51,8 @@ public class UnioProtections extends JavaPlugin {
     private FloAuction floAuction;
     @Getter
     private Duels duels;
+    @Getter
+    private CustomItems customItems;
 
     public void onEnable() {
         configManager = new ConfigManager(this);
@@ -93,6 +96,10 @@ public class UnioProtections extends JavaPlugin {
 
         if (Bukkit.getPluginManager().isPluginEnabled("ObsidianAuctions")) {
             floAuction = (FloAuction) Bukkit.getPluginManager().getPlugin("ObsidianAuctions");
+        }
+
+        if (Bukkit.getPluginManager().isPluginEnabled("UnioCustomItems")) {
+            customItems = (CustomItems) Bukkit.getPluginManager().getPlugin("UnioCustomItems");
         }
 
         // Managers

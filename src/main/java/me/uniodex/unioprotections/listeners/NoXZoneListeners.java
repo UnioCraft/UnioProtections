@@ -13,6 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import java.util.List;
 
@@ -67,17 +68,25 @@ public class NoXZoneListeners implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-
-        if (!plugin.getCheckManager().isCheckEnabled(Check.NOTELEPORTZONE)) return;
+        if (!plugin.getCheckManager().isCheckEnabled(Check.NOTELEPORTZONE) && !plugin.getCheckManager().isCheckEnabled(Check.SMALLFIX_DISALLOWITEMFRAMEINDISPENSER))
+            return;
         if (player.hasPermission("unioprotections.teleport.bypass")) return;
         if (plugin.getWorldGuard() == null) return;
+        if (event.getCause().equals(TeleportCause.PLUGIN)) return;
 
         for (String region : plugin.getCheckManager().getNoXZoneManager().getNoTeleportZones()) {
             if (Utils.isLocationInRegion(plugin.getWorldGuard(), region, event.getTo())) {
                 event.setCancelled(true);
                 player.sendMessage(plugin.getMessage("noFlyAndTeleportZones.youCantTeleportThere"));
-                break;
+                return;
             }
         }
+
+        if (Utils.isThereALocationStartsWith(plugin.getWorldGuard(), plugin.getConfig().getString("settings.duelZonePrefix"), event.getTo())) {
+            event.setCancelled(true);
+            player.sendMessage(plugin.getMessage("noFlyAndTeleportZones.youCantTeleportThere"));
+            return;
+        }
+
     }
 }
