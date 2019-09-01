@@ -1,7 +1,8 @@
 package me.uniodex.unioprotections.managers;
 
 import lombok.Getter;
-import me.UnioDex.CustomItems.managers.ItemManager.Items;
+import me.uniodex.uniocustomitems.managers.ItemManager;
+import me.uniodex.uniocustomitems.managers.ItemManager.Items;
 import me.uniodex.unioprotections.UnioProtections;
 import org.bukkit.ChatColor;
 
@@ -27,7 +28,7 @@ public class CustomItemsManager {
     }
 
     private void initUCINames() {
-        for (Items item : Items.values()) {
+        for (ItemManager.Items item : Items.values()) {
             String itemName = ChatColor.stripColor(plugin.getCustomItems().itemManager.getItem(item).getItemMeta().getDisplayName().toLowerCase());
             disallowedItemNames.add(itemName);
             if (itemName.contains(" (sağ tıkla)")) {
