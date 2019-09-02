@@ -29,6 +29,8 @@ public class CheckManager {
     private ObsidianAuctionsManager obsidianAuctionsManager;
     @Getter
     private CustomItemsManager customItemsManager;
+    @Getter
+    private BossOwnerManager bossOwnerManager;
 
     public CheckManager(UnioProtections plugin) {
         this.plugin = plugin;
@@ -113,6 +115,12 @@ public class CheckManager {
             enabledChecks.add(Check.DISALLOWNAMINGFAKEITEMS);
         }
 
+        // Store Boss Owners
+        if (plugin.getConfig().getBoolean("checks.storeBossOwners") && plugin.getMythicMobs() != null) {
+            bossOwnerManager = new BossOwnerManager(plugin);
+            enabledChecks.add(Check.STOREBOSSOWNERS);
+        }
+
         // Small Fixes
         new SmallFixListeners(plugin);
 
@@ -153,6 +161,7 @@ public class CheckManager {
         ANTISHOPBUG,
         NODUELONAUCTION,
         DISALLOWNAMINGFAKEITEMS,
+        STOREBOSSOWNERS,
         SMALLFIX_LEAVEVEHICLEONJOIN,
         SMALLFIX_DISALLOWITEMFRAMEINDISPENSER,
         SMALLFIX_DISALLOWTELEPORTINGTODUELAREAS

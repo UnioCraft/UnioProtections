@@ -74,6 +74,6 @@ public class ConfigManager {
     }
 
     public enum Config {
-        DATA, LANG
+        LANG, BOSSOWNERS
     }
 }

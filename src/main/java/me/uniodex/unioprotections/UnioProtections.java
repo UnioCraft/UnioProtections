@@ -138,6 +138,7 @@ public class UnioProtections extends JavaPlugin {
     }
 
     private void save() {
-        configManager.saveConfig(Config.DATA);
+        checkManager.getBossOwnerManager().saveBossOwners();
+        configManager.saveConfig(Config.BOSSOWNERS);
     }
 }

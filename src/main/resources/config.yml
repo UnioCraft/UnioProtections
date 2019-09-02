@@ -10,6 +10,7 @@ checks:
   antiShopBug: true
   denyDuelOnAuction: true
   disallowNamingFakeItems: true
+  storeBossOwners: true
   smallFixes:
     leaveVehicleOnjoin: true
     disallowItemFrameInDispenser: true

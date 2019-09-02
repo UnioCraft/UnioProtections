@@ -1,5 +1,6 @@
 package me.uniodex.unioprotections.managers;
 
+import io.lumine.xikage.mythicmobs.mobs.ActiveMob;
 import lombok.Getter;
 import me.uniodex.unioprotections.UnioProtections;
 import me.uniodex.unioprotections.objects.EntityData;
@@ -11,10 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class LootProtectionManager {
 
@@ -27,7 +25,7 @@ public class LootProtectionManager {
 
     public LootProtectionManager(UnioProtections plugin) {
         this.plugin = plugin;
-        protectionTimeout = plugin.getConfig().getLong("settings.lootProtectionTimeout", 10);
+        protectionTimeout = plugin.getConfig().getLong("settings.lootProtectionTimeout", 10) * 1000;
 
         // Cleanup Task
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
@@ -67,7 +65,17 @@ public class LootProtectionManager {
             return true;
         }
 
-        return plugin.getMythicMobs() != null && plugin.getMythicMobs().getMobManager().isActiveMob(entity.getUniqueId());
+        if (plugin.getMythicMobs() != null) {
+            Optional<ActiveMob> activeMob = plugin.getMythicMobs().getMobManager().getActiveMob(entity.getUniqueId());
+            if (activeMob.isPresent()) {
+                if (activeMob.get().getType().getInternalName().contains("Minyon") || activeMob.get().getType().getInternalName().contains("MiniBoss")) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void clearData(Entity entity) {

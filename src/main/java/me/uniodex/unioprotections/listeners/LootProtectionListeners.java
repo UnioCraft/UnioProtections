@@ -9,6 +9,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -25,9 +26,8 @@ public class LootProtectionListeners implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPickup(EntityPickupItemEvent event) {
-        if (!plugin.getCheckManager().getLootProtectionManager().isItemProtected(event.getItem())) {
+        if (!plugin.getCheckManager().getLootProtectionManager().isItemProtected(event.getItem()))
             return;
-        }
 
         if (!(event.getEntity() instanceof Player)) {
             event.setCancelled(true);
@@ -77,21 +77,30 @@ public class LootProtectionListeners implements Listener {
         plugin.getCheckManager().getLootProtectionManager().getEntityDatas().get(entity.getUniqueId()).addDamage(player.getName(), event.getDamage());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onDeath(EntityDeathEvent event) {
         if (event.getDrops().isEmpty()) return;
         if (!plugin.getCheckManager().getLootProtectionManager().getEntityDatas().containsKey(event.getEntity().getUniqueId()))
             return;
 
         Entity entity = event.getEntity();
-        String topDamager = plugin.getCheckManager().getLootProtectionManager().getEntityDatas().get(entity.getUniqueId()).getTopDamager();
-        if (topDamager == null) {
+        String lootOwner = plugin.getCheckManager().getLootProtectionManager().getEntityDatas().get(entity.getUniqueId()).getTopDamager();
+
+        if (plugin.getMythicMobs().getMobManager().isActiveMob(entity.getUniqueId())) {
+            if (plugin.getCheckManager().getBossOwnerManager().getBossOwner(entity.getUniqueId()) != null) {
+                lootOwner = plugin.getCheckManager().getBossOwnerManager().getBossOwner(entity.getUniqueId());
+            }
+        }
+
+        plugin.getCheckManager().getBossOwnerManager().removeBossOwner(event.getEntity().getUniqueId());
+
+        if (lootOwner == null) {
             plugin.getCheckManager().getLootProtectionManager().clearData(event.getEntity());
             return;
         }
 
         try {
-            plugin.getCheckManager().getLootProtectionManager().protectLoot(event.getDrops(), topDamager, entity.getLocation());
+            plugin.getCheckManager().getLootProtectionManager().protectLoot(event.getDrops(), lootOwner, entity.getLocation());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -102,21 +111,22 @@ public class LootProtectionListeners implements Listener {
 
         if (!plugin.getCheckManager().getLootProtectionManager().shouldSendMessage(event.getEntity())) return;
 
-        if (event.getEntity().getKiller() != null && !event.getEntity().getKiller().getName().equals(topDamager)) {
+        if (event.getEntity().getKiller() != null && !event.getEntity().getKiller().getName().equals(lootOwner)) {
             Player killer = event.getEntity().getKiller();
             if (event.getEntity() instanceof Player) {
-                killer.sendMessage(plugin.getMessage("lootProtection.playerLootBelongToSomeoneElse").replaceAll("%lootOwner%", topDamager));
+                killer.sendMessage(plugin.getMessage("lootProtection.playerLootBelongToSomeoneElse").replaceAll("%lootOwner%", lootOwner));
             } else {
-                killer.sendMessage(plugin.getMessage("lootProtection.mobLootBelongToSomeoneElse").replaceAll("%lootOwner%", topDamager));
+                killer.sendMessage(plugin.getMessage("lootProtection.mobLootBelongToSomeoneElse").replaceAll("%lootOwner%", lootOwner));
             }
         }
 
-        if (Bukkit.getPlayerExact(topDamager) != null) {
-            Player killer = Bukkit.getPlayerExact(topDamager);
+        if (Bukkit.getPlayerExact(lootOwner) != null) {
+            Player killer = Bukkit.getPlayerExact(lootOwner);
             killer.sendMessage(plugin.getMessage("lootProtection.lootBelongToYou"));
 
+            String finalLootOwner = lootOwner;
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                if (Bukkit.getPlayerExact(topDamager) != null) {
+                if (Bukkit.getPlayerExact(finalLootOwner) != null) {
                     killer.sendMessage(plugin.getMessage("lootProtection.lootProtectionTimedOut"));
                 }
             }, plugin.getCheckManager().getLootProtectionManager().getProtectionTimeout() * 20);

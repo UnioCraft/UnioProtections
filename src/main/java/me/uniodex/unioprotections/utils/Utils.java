@@ -5,13 +5,16 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import me.uniodex.unioprotections.UnioProtections;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Utils {
 
@@ -62,5 +65,16 @@ public class Utils {
         if (item.getItemMeta() == null) return false;
         if (item.getItemMeta().getDisplayName() == null) return false;
         return true;
+    }
+
+    public static boolean entityExist(UUID entityUuid) {
+        for (World world : Bukkit.getWorlds()) {
+            for (Entity entity : world.getEntities()) {
+                if (entity.getUniqueId().equals(entityUuid)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
