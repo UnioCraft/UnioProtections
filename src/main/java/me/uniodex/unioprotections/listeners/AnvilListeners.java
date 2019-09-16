@@ -36,7 +36,7 @@ public class AnvilListeners implements Listener {
                 }
             }
 
-            if (anvilInventory.getRenameText().toLowerCase().contains(disallowedItem)) {
+            if (anvilInventory.getRenameText() != null && anvilInventory.getRenameText().toLowerCase().contains(disallowedItem)) {
                 event.setResult(new ItemStack(Material.AIR));
                 for (HumanEntity player : event.getViewers()) {
                     player.sendMessage(plugin.getMessage("disallowNamingFakeItems.youCantNameItemsSpecial"));

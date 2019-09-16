@@ -52,7 +52,7 @@ public class AntiCrashCodeListeners implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         if (event.getInventory().getType().equals(InventoryType.ANVIL)) {
-            if (event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta()) {
+            if (event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() && event.getCurrentItem().getItemMeta().getDisplayName() != null) {
                 if (containsBadCharacter(event.getCurrentItem().getItemMeta().getDisplayName())) {
                     event.setCancelled(true);
                     player.sendMessage(plugin.getMessage("antiCrashCode.cantUseCrashCode").replaceAll("%s", String.valueOf(BAD_CHARACTER)));
@@ -65,7 +65,7 @@ public class AntiCrashCodeListeners implements Listener {
     public void on(PrepareAnvilEvent event) {
         AnvilInventory anvilInventory = event.getInventory();
 
-        if (containsBadCharacter(anvilInventory.getRenameText())) {
+        if (anvilInventory.getRenameText() != null && containsBadCharacter(anvilInventory.getRenameText())) {
             event.setResult(new ItemStack(Material.AIR));
             for (HumanEntity player : event.getViewers()) {
                 player.sendMessage(plugin.getMessage("antiCrashCode.cantUseCrashCode").replaceAll("%s", String.valueOf(BAD_CHARACTER)));
